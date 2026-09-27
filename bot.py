@@ -83,7 +83,7 @@ RICERCHE = [
 PAROLE_VIETATE_GLOBALI = [
     # Italiano
     "vuota", "vuoto", "solo-custodia", "solo-scatola", "solo-box", "senza-gioco", "no-gioco", "solo-codice",
-    # Francese (importantissimo su Vinted!)
+    # Francese 
     "vide", "boite-vide", "boitier-vide", "sans-jeu", "seul-boitier", "code-seul",
     # Spagnolo
     "vacia", "vacio", "solo-caja", "sin-juego", "caja-vacia",
@@ -254,8 +254,8 @@ def check_vinted():
         with open(LOG_FILE, "a", encoding="utf-8") as file_log:
             file_log.write(riga_log)
 
-    # --- RESOCONTO DI FINE GIORNATA (Scatta alle 00:30) ---
-    if ora_attuale.hour == 0 and ora_attuale.minute >= 30:
+    # --- RESOCONTO DI FINE GIORNATA (Scatta a mezzanotte 00:00 - 00:09) ---
+    if ora_attuale.hour == 0 and ora_attuale.minute < 10:
         try:
             with open(LOG_FILE, "r", encoding="utf-8") as file_log:
                 contenuto_diario = file_log.read()
@@ -265,13 +265,13 @@ def check_vinted():
         messaggio_resoconto = (
             "📊 *RESOCONTO GIORNALIERO VINTED*\n\n"
             f"{contenuto_diario}\n"
-            "🌙 Buonanotte, riprendo alle 08:00!"
+            "🦉 Resoconto di mezzanotte completato! Il bot continua a scansionare 24/7."
         )
         
         # Il resoconto giornaliero viene inviato SOLO a te
         send_telegram_message(messaggio_resoconto, ["mio"])
         
-        # Svuota il diario per prepararlo a domani
+        # Svuota il diario per prepararlo al nuovo giorno
         open(LOG_FILE, "w", encoding="utf-8").close()
 
 if __name__ == "__main__":
@@ -279,4 +279,5 @@ if __name__ == "__main__":
     print("   Bot Vinted Action Avviato!          ")
     print("=======================================")
 
+    check_vinted()
     check_vinted()
