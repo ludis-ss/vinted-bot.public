@@ -64,3 +64,5 @@
 🕒 22:01 | ✅ Ok | Visti: 333 | Novità: 0
 🕒 22:02 | ✅ Ok | Visti: 335 | Novità: 0
 🕒 22:11 | ✅ Ok | Visti: 333 | Novità: 0
+🕒 22:21 | ✅ Ok | Visti: 336 | Novità: 1
+🕒 22:22 | ✅ Ok | Visti: 335 | Novità: 0
