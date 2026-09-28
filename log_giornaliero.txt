@@ -99,3 +99,5 @@
 🕒 12:21 | ✅ Ok | Visti: 335 | Novità: 0
 🕒 12:41 | ✅ Ok | Visti: 335 | Novità: 0
 🕒 12:51 | ✅ Ok | Visti: 336 | Novità: 0
+🕒 13:01 | ✅ Ok | Visti: 337 | Novità: 1
+🕒 13:02 | ✅ Ok | Visti: 336 | Novità: 0
