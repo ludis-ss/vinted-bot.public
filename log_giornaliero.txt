@@ -162,3 +162,5 @@
 🕒 20:01 | ✅ Ok | Visti: 340 | Novità: 0
 🕒 20:02 | ✅ Ok | Visti: 340 | Novità: 0
 🕒 20:11 | ✅ Ok | Visti: 342 | Novità: 1
+🕒 20:21 | ✅ Ok | Visti: 337 | Novità: 1
+🕒 20:22 | ✅ Ok | Visti: 342 | Novità: 0
