@@ -59,7 +59,7 @@ RICERCHE = [
         "prezzo_max": 35,
         "parole_obbligatorie": ["silent", "hill", "townfall"],
         "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book"], # <-- Steelbook bloccato SOLO per Townfall
-        "destinatari": ["mio", "amico"] 
+        "destinatari": ["mio"] 
     },
     {
         "nome": "Silent Hill 2 PS5",
