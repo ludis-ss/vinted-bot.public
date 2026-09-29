@@ -233,3 +233,4 @@
 🕒 23:16 | ✅ Ok | Visti: 322 | Novità: 0
 🕒 23:21 | ✅ Ok | Visti: 316 | Novità: 0
 🕒 23:26 | ✅ Ok | Visti: 320 | Novità: 0
+🕒 23:31 | ❌ Errore HTTP 500 | Visti: 294 | Novità: 0
