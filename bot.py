@@ -58,7 +58,7 @@ RICERCHE = [
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%20townfall&catalog[]=3026&page=1&time=1790504239&video_game_platform_ids[]=1281&order=newest_first",
         "prezzo_max": 35,
         "parole_obbligatorie": ["silent", "hill", "townfall"],
-        "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book"], # <-- Steelbook bloccato SOLO per Townfall
+        "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book"],
         "destinatari": ["mio"] 
     },
     {
@@ -66,7 +66,7 @@ RICERCHE = [
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%202&catalog[]=3026&page=1&time=1790504392&video_game_platform_ids[]=1281&order=newest_first&search_by_image_uuid=&search_by_image_id=",
         "prezzo_max": 25,
         "parole_obbligatorie": ["silent", "hill", "2"],
-        "parole_vietate": ["ps4", "xbox"],
+        "parole_vietate": ["ps4", "xbox", "townfall"],
         "destinatari": ["mio"]
     },
     {
@@ -254,8 +254,8 @@ def check_vinted():
         with open(LOG_FILE, "a", encoding="utf-8") as file_log:
             file_log.write(riga_log)
 
-    # --- RESOCONTO DI FINE GIORNATA (Scatta a mezzanotte 00:00 - 00:09) ---
-    if ora_attuale.hour == 0 and ora_attuale.minute < 10:
+    # --- RESOCONTO DI FINE GIORNATA (Scatta a mezzanotte 00:00 - 00:04) ---
+    if ora_attuale.hour == 0 and ora_attuale.minute < 5:
         try:
             with open(LOG_FILE, "r", encoding="utf-8") as file_log:
                 contenuto_diario = file_log.read()
@@ -279,5 +279,4 @@ if __name__ == "__main__":
     print("   Bot Vinted Action Avviato!          ")
     print("=======================================")
 
-    check_vinted()
     check_vinted()
