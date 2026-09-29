@@ -226,3 +226,4 @@
 🕒 22:41 | ✅ Ok | Visti: 319 | Novità: 0
 🕒 22:46 | ✅ Ok | Visti: 320 | Novità: 0
 🕒 22:51 | ✅ Ok | Visti: 320 | Novità: 0
+🕒 22:56 | ❌ Errore HTTP 500 | Visti: 276 | Novità: 0
