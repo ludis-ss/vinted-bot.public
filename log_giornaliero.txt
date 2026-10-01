@@ -149,3 +149,4 @@
 🕒 12:26 | ✅ Ok | Visti: 325 | Novità: 1
 🕒 12:31 | ✅ Ok | Visti: 328 | Novità: 0
 🕒 12:35 | ✅ Ok | Visti: 327 | Novità: 0
+🕒 12:41 | ❌ Errore HTTP 403 | Visti: 0 | Novità: 0
