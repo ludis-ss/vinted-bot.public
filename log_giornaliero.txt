@@ -169,3 +169,4 @@
 🕒 14:06 | ✅ Ok | Visti: 326 | Novità: 0
 🕒 14:11 | ✅ Ok | Visti: 326 | Novità: 0
 🕒 14:16 | ✅ Ok | Visti: 327 | Novità: 0
+🕒 14:21 | ❌ Errore HTTP 500 | Visti: 285 | Novità: 0
