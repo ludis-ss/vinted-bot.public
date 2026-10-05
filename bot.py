@@ -56,7 +56,7 @@ RICERCHE = [
     {
         "nome": "Silent Hill Townfall PS5",
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%20townfall&catalog[]=3026&page=1&time=1790504239&video_game_platform_ids[]=1281&order=newest_first",
-        "prezzo_max": 30,
+        "prezzo_max": 25,
         "parole_obbligatorie": ["silent", "hill", "townfall"],
         "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book"],
         "destinatari": ["mio"] 
