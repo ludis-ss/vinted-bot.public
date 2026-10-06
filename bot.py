@@ -74,7 +74,7 @@ RICERCHE = [
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%20f&catalog[]=3026&page=1&time=1790518114&video_game_platform_ids[]=1281&order=newest_first",
         "prezzo_max": 35,
         "parole_obbligatorie": ["silent", "hill"], 
-        "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book", "2", "townfall", "hd", "downpour", "homecoming", "origins", "shattered"], 
+        "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book", "townfall", "hd", "downpour", "homecoming", "origins", "shattered"], 
         "destinatari": ["mio", "amico"]
     }
 ]
