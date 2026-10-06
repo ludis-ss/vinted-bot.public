@@ -155,3 +155,4 @@
 🕒 12:56 | ✅ Ok | Visti: 325 | Novità: 0
 🕒 13:01 | ✅ Ok | Visti: 326 | Novità: 0
 🕒 13:06 | ✅ Ok | Visti: 329 | Novità: 0
+🕒 13:11 | ❌ Errore HTTP 500 | Visti: 314 | Novità: 0
