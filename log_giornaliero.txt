@@ -93,3 +93,4 @@
 🕒 07:46 | ✅ Ok | Visti: 321 | Novità: 0
 🕒 07:51 | ✅ Ok | Visti: 324 | Novità: 0
 🕒 07:56 | ✅ Ok | Visti: 323 | Novità: 0
+🕒 08:01 | ❌ Errore HTTP 403 | Visti: 0 | Novità: 0
