@@ -126,3 +126,4 @@
 🕒 10:31 | ✅ Ok | Visti: 322 | Novità: 0
 🕒 10:36 | ✅ Ok | Visti: 317 | Novità: 0
 🕒 10:41 | ✅ Ok | Visti: 320 | Novità: 0
+🕒 10:46 | ❌ Errore HTTP 403 | Visti: 0 | Novità: 0
