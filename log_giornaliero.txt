@@ -250,3 +250,4 @@
 🕒 20:50 | ✅ Ok | Visti: 314 | Novità: 0
 🕒 20:55 | ✅ Ok | Visti: 312 | Novità: 1
 🕒 21:01 | ✅ Ok | Visti: 317 | Novità: 0
+🕒 21:05 | ❌ Errore HTTP 403 | Visti: 0 | Novità: 0
