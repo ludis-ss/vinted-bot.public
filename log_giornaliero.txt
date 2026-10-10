@@ -6,3 +6,4 @@
 🕒 00:31 | ✅ Ok | Visti: 318 | Novità: 0
 🕒 00:35 | ✅ Ok | Visti: 318 | Novità: 0
 🕒 00:40 | ✅ Ok | Visti: 323 | Novità: 0
+🕒 00:45 | ❌ Errore HTTP 500 | Visti: 301 | Novità: 0
