@@ -202,3 +202,4 @@
 🕒 16:50 | ✅ Ok | Visti: 319 | Novità: 0
 🕒 16:56 | ✅ Ok | Visti: 322 | Novità: 0
 🕒 17:01 | ✅ Ok | Visti: 322 | Novità: 0
+🕒 17:05 | ❌ Errore HTTP 500 | Visti: 292 | Novità: 0
