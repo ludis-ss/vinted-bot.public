@@ -1,11 +1,16 @@
 name: Vinted Monitor Bot 1.0
 
 on:
-  workflow_dispatch: # L'unico trigger necessario per l'avvio da cron-job.org
+  workflow_dispatch: # Trigger per l'avvio da cron-job.org
 
-# Diamo al bot il permesso di salvare i file nel repository
+# Diamo al bot il permesso di leggere e scrivere file nel repository
 permissions:
   contents: write
+
+# ⚡ NUOVO: Evita che due bot partano in contemporanea causando blocchi 403 o conflitti Git
+concurrency:
+  group: vinted-bot-group
+  cancel-in-progress: false
 
 jobs:
   run-bot:
@@ -14,12 +19,15 @@ jobs:
     steps:
       - name: Scarica il codice dal repository
         uses: actions/checkout@v4
+        with:
+          # Importante per permettere all'azione successiva di fare push correttamente
+          fetch-depth: 0 
 
       - name: Configura Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip' # ⚡ NUOVO: Salva le dipendenze in memoria per velocizzare l'avvio
+          cache: 'pip' # Salva le dipendenze in memoria per velocizzare l'avvio
 
       - name: Installa le dipendenze
         run: |
@@ -27,23 +35,22 @@ jobs:
           pip install -r requirements.txt
 
       - name: Ritardo casuale anti-ban
-        # ⚡ MODIFICATO: Attesa tra 15 e 30 secondi per tenere l'intero job sotto 1 minuto
+        # Attesa tra 15 e 30 secondi per variare il pattern di richiesta
         run: sleep $((RANDOM % 16 + 15))
 
       - name: Esegui lo script Bot
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           CHAT_ID: ${{ secrets.CHAT_ID }}
-          CHAT_ID_AA: ${{ secrets.CHAT_ID_AA }} # ⚡ AGGIUNTO: ID del secondo utente
-          TZ: "Europe/Rome" # ⚡ NUOVO: Fissa l'orario italiano per il resoconto di mezzanotte
+          CHAT_ID_AA: ${{ secrets.CHAT_ID_AA }}
+          TZ: "Europe/Rome" # Fissa l'orario italiano per il resoconto di mezzanotte
         run: python bot.py
 
       - name: Salva gli articoli già visti e il log
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          # ⚡ MODIFICATO: Aggiunto log_giornaliero.txt alla lista dei file da salvare
-          git add notified_items.txt log_giornaliero.txt
-          git commit -m "🤖 Aggiornata memoria bot e resoconto" || echo "Nessun file da salvare"
-          git pull --rebase # ⚡ AGGIUNTO: Previene gli errori di salvataggio e la perdita di memoria!
-          git push
+        # ⚡ MIGLIORATO: Usa l'azione ufficiale per evitare conflitti e rebase falliti
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Aggiornata memoria bot e resoconto"
+          file_pattern: 'notified_items.txt log_giornaliero.txt resoconto_inviato_*.txt'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
