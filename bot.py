@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import time
 import datetime
 import traceback
+import re # <-- AGGIUNTO: Libreria per le espressioni regolari (motore di filtraggio)
 
 # --- CONFIGURAZIONE TELEGRAM ---
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
@@ -74,7 +75,7 @@ RICERCHE = [
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%202&catalog[]=3026&page=1&time=1790504392&video_game_platform_ids[]=1281&order=newest_first&search_by_image_uuid=&search_by_image_id=",
         "prezzo_max": 25,
         "parole_obbligatorie": ["silent", "hill", "2"],
-        "parole_vietate": ["ps4", "xbox", "townfall"],
+        "parole_vietate": ["ps4", "xbox", "townfall", "f"], 
         "destinatari": ["mio"]
     }
 ]
@@ -162,16 +163,42 @@ def scansiona_singolo_url(ricerca):
                 # ⚡ RADAR TOTALE: Legge URL, attributo title (titolo originale) e testo visibile!
                 testo_completo = f"{href} {a_tag.get('title', '')} {a_tag.get_text()}".lower()
                 
+                # --- INIZIO NUOVO MOTORE DI FILTRAGGIO INTELLIGENTE ---
                 # 1. Controlla che ci siano TUTTE le parole obbligatorie
-                if not all(parola in testo_completo for parola in ricerca["parole_obbligatorie"]):
+                manca_parola = False
+                for parola in ricerca["parole_obbligatorie"]:
+                    # Se la parola è di 1 o 2 caratteri (es. "2", "f"), cerca la parola esatta e isolata (\b)
+                    if len(parola) <= 2:
+                        if not re.search(rf'\b{re.escape(parola)}\b', testo_completo):
+                            manca_parola = True
+                            break
+                    else:
+                        # Ricerca classica per parole lunghe
+                        if parola not in testo_completo:
+                            manca_parola = True
+                            break
+                
+                if manca_parola:
                     continue
                 
                 # 2. CONTROLLO PAROLE VIETATE (Specifiche + Globali)
                 vietate_specifiche = ricerca.get("parole_vietate", [])
                 tutte_le_vietate = vietate_specifiche + PAROLE_VIETATE_GLOBALI
                 
-                if any(vietata in testo_completo for vietata in tutte_le_vietate):
+                parola_vietata_trovata = False
+                for vietata in tutte_le_vietate:
+                    if len(vietata) <= 2:
+                        if re.search(rf'\b{re.escape(vietata)}\b', testo_completo):
+                            parola_vietata_trovata = True
+                            break
+                    else:
+                        if vietata in testo_completo:
+                            parola_vietata_trovata = True
+                            break
+                            
+                if parola_vietata_trovata:
                     continue  
+                # --- FINE NUOVO MOTORE ---
                 
                 items_found += 1
                 
@@ -278,5 +305,7 @@ if __name__ == "__main__":
     print("=======================================")
     print("   Bot Vinted Action Avviato!          ")
     print("=======================================")
+
+    check_vinted()
 
     check_vinted()
