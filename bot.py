@@ -5,24 +5,20 @@ from bs4 import BeautifulSoup
 import time
 import datetime
 import traceback
-import re
-import json # <-- AGGIUNTO: Libreria per salvare e leggere i prezzi PSN
+import re # <-- Libreria per le espressioni regolari (motore di filtraggio)
 
 # --- CONFIGURAZIONE TELEGRAM ---
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 CHAT_ID_MIO = os.environ.get("CHAT_ID")
-CHAT_ID_AMICO = os.environ.get("CHAT_ID_AA")
-
-# <-- AGGIUNTO: File dove il bot salverà i prezzi digitali di notte
-FILE_PREZZI_PSN = "prezzi_psn.json" 
+CHAT_ID_AMICO = os.environ.get("CHAT_ID_AA") # <-- Carica l'ID del secondo utente dai Secrets
 
 # --- LISTA RICERCHE VINTED ---
 RICERCHE = [
     {
         "nome": "Oblivion PS5",
         "url": "https://www.vinted.it/catalog?search_text=oblivion%20remastered%20ps5&search_id=1264195745&catalog[]=3026&page=1&time=1784735308&video_game_platform_ids[]=1281&order=newest_first&price_to=50&currency=EUR",
-        "url_psprices": "https://psprices.com/region-it/game/8555531/the-elder-scrolls-iv-oblivion-remastered", # <-- Inserito il tuo link!
         "prezzo_max": 25,
+        "prezzo_minimo_digitale": 9.99, # <-- ESEMPIO: Inserisci qui il minimo storico manuale (usa il punto)
         "parole_obbligatorie": ["oblivion"],
         "parole_vietate": ["ps3"],
         "destinatari": ["mio"]
@@ -30,8 +26,8 @@ RICERCHE = [
     {
         "nome": "The Witcher 3 PS5",
         "url": "https://www.vinted.it/catalog?search_text=the%20witcher%203%20complete%20edition%20ps5&search_id=1367909452&catalog[]=3026&page=1&time=1785054873&video_game_platform_ids[]=1281&order=newest_first&currency=EUR",
-        "url_psprices": "https://psprices.com/region-it/game/5835261/the-witcher-3-wild-hunt-complete-edition",
         "prezzo_max": 15,  
+        "prezzo_minimo_digitale": 0.0, # Cambialo con il prezzo reale
         "parole_obbligatorie": ["witcher"],
         "parole_vietate": ["ps4"],
         "destinatari": ["mio"]
@@ -39,8 +35,8 @@ RICERCHE = [
     {
         "nome": "Demon Souls PS5",
         "url": "https://www.vinted.it/catalog?search_text=Demon%20Souls%20Ps5&search_id=1633776199&search_by_image_uuid=&search_by_image_id=&page=1&time=1785781545&catalog[]=3026&video_game_platform_ids[]=1281&order=newest_first",
-        "url_psprices": "",
         "prezzo_max": 20,
+        "prezzo_minimo_digitale": 40.0,
         "parole_obbligatorie": ["demon", "souls"],
         "parole_vietate": ["ps4", "ps3"],
         "destinatari": ["mio"]
@@ -48,8 +44,8 @@ RICERCHE = [
     {
         "nome": "Uncharted Collection PS4",
         "url": "https://www.vinted.it/catalog?search_text=uncharted%20collection%20ps4&search_id=1639015118&catalog[]=3026&page=1&time=1785789669&video_game_platform_ids[]=1280&order=newest_first",
-        "url_psprices": "",
         "prezzo_max": 7,
+        "prezzo_minimo_digitale": 5.9,
         "parole_obbligatorie": ["uncharted", "collection"],
         "parole_vietate": ["ps3", "ps5", "legacy", "thieves"],
         "destinatari": ["mio"]
@@ -57,8 +53,8 @@ RICERCHE = [
     {
         "nome": "Gotham Knights PS5",
         "url": "https://www.vinted.it/catalog?search_text=gotham%20knights%20&catalog[]=3026&page=1&time=1789121005&video_game_platform_ids[]=1281&order=newest_first",
-        "url_psprices": "",
         "prezzo_max": 8,
+        "prezzo_minimo_digitale": 7.49,
         "parole_obbligatorie": ["gotham", "knights"],
         "parole_vietate": ["ps4", "xbox"],
         "destinatari": ["mio"]
@@ -66,8 +62,8 @@ RICERCHE = [
     {
         "nome": "Silent Hill f PS5",
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%20f&catalog[]=3026&page=1&time=1790518114&video_game_platform_ids[]=1281&order=newest_first",
-        "url_psprices": "",
         "prezzo_max": 30,
+        "prezzo_minimo_digitale": 40.0,
         "parole_obbligatorie": ["silent", "hill"], 
         "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book", "townfall", "hd", "downpour", "homecoming", "origins", "shattered"], 
         "destinatari": ["mio", "amico"]
@@ -75,8 +71,8 @@ RICERCHE = [
     {
         "nome": "Silent Hill Townfall PS5",
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%20townfall&catalog[]=3026&page=1&time=1790504239&video_game_platform_ids[]=1281&order=newest_first",
-        "url_psprices": "",
         "prezzo_max": 25,
+        "prezzo_minimo_digitale": 50.0,
         "parole_obbligatorie": ["silent", "hill", "townfall"],
         "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book"],
         "destinatari": ["mio"] 
@@ -84,8 +80,8 @@ RICERCHE = [
     {
         "nome": "Silent Hill 2 PS5",
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%202&catalog[]=3026&page=1&time=1790504392&video_game_platform_ids[]=1281&order=newest_first&search_by_image_uuid=&search_by_image_id=",
-        "url_psprices": "",
         "prezzo_max": 25,
+        "prezzo_minimo_digitale": 28.0,
         "parole_obbligatorie": ["silent", "hill", "2"],
         "parole_vietate": ["ps4", "xbox", "townfall", "f"], 
         "destinatari": ["mio"]
@@ -94,9 +90,13 @@ RICERCHE = [
 
 # --- PAROLE VIETATE GLOBALI ---
 PAROLE_VIETATE_GLOBALI = [
+    # Italiano
     "vuota", "vuoto", "solo-custodia", "solo-scatola", "solo-box", "senza-gioco", "no-gioco", "solo-codice",
+    # Francese 
     "vide", "boite-vide", "boitier-vide", "sans-jeu", "seul-boitier", "code-seul",
+    # Spagnolo
     "vacia", "vacio", "solo-caja", "sin-juego", "caja-vacia",
+    # Inglese
     "empty", "box-only", "case-only", "no-game", "code-only"
 ]
 
@@ -133,43 +133,7 @@ def salva_in_memoria(link):
     with open(MEMORIA_FILE, "a", encoding="utf-8") as f:
         f.write(link + "\n")
 
-# <-- AGGIUNTO: Funzione per estrarre il MINIMO STORICO da PSPrices
-def aggiorna_prezzi_psn():
-    print("-> Inizio scansione notturna PS Store (via PSPrices)...")
-    prezzi_salvati = {}
-    
-    for ricerca in RICERCHE:
-        url_ps = ricerca.get("url_psprices", "")
-        nome = ricerca["nome"]
-        
-        if url_ps:
-            try:
-                response = scraper.get(url_ps, headers=HEADERS, timeout=15)
-                if response.status_code == 200:
-                    soup = BeautifulSoup(response.text, "html.parser")
-                    
-                    # Estrae tutto il testo della pagina
-                    testo_pagina = soup.get_text().lower()
-                    
-                    # Cerca la dicitura del minimo storico e cattura il numero che segue
-                    match_minimo = re.search(r'(?:prezzo più basso|lowest price)[^\d]*(\d+[,.]\d+)', testo_pagina)
-                    
-                    if match_minimo:
-                        prezzo_str = match_minimo.group(1).replace(',', '.')
-                        prezzo_minimo = float(prezzo_str)
-                        prezzi_salvati[nome] = prezzo_minimo
-                        print(f"   [+] Minimo storico PSN trovato per {nome}: {prezzo_minimo}€")
-                    else:
-                        print(f"   [-] Impossibile trovare il minimo storico per {nome}")
-            except Exception as e:
-                print(f"   [!] Errore prezzo PSN per {nome}: {e}")
-            
-            time.sleep(3)
-            
-    with open(FILE_PREZZI_PSN, "w", encoding="utf-8") as f:
-        json.dump(prezzi_salvati, f)
-    print("-> Scansione PSN completata e salvata!")
-
+# --- NUOVA FUNZIONE DI INVIO SMISTATO ---
 def send_telegram_message(text, lista_destinatari=["mio"]):
     if not TELEGRAM_TOKEN:
         print("⚠️ Token mancante nei Secrets!")
@@ -200,7 +164,7 @@ def scansiona_singolo_url(ricerca):
     except requests.exceptions.Timeout:
         print(f"-> Timeout su {ricerca['nome']}, salto alla prossima...")
         return items_found, new_alerts, "Timeout"
-        
+    
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "html.parser")
         
@@ -210,6 +174,7 @@ def scansiona_singolo_url(ricerca):
             if "/items/" in href:
                 testo_completo = f"{href} {a_tag.get('title', '')} {a_tag.get_text()}".lower()
                 
+                # --- INIZIO NUOVO MOTORE DI FILTRAGGIO INTELLIGENTE ---
                 manca_parola = False
                 for parola in ricerca["parole_obbligatorie"]:
                     if len(parola) <= 2:
@@ -240,6 +205,7 @@ def scansiona_singolo_url(ricerca):
                             
                 if parola_vietata_trovata:
                     continue  
+                # --- FINE NUOVO MOTORE ---
                 
                 items_found += 1
                 
@@ -264,20 +230,15 @@ def scansiona_singolo_url(ricerca):
                         if price_float <= ricerca["prezzo_max"]:
                             full_link = href if href.startswith("http") else f"https://www.vinted.it{href}"
                             
-                            # <-- AGGIUNTO: Lettura del minimo storico salvato
-                            prezzo_digitale_str = ""
-                            if os.path.exists(FILE_PREZZI_PSN):
-                                try:
-                                    with open(FILE_PREZZI_PSN, "r", encoding="utf-8") as f:
-                                        memoria_psn = json.load(f)
-                                        if ricerca["nome"] in memoria_psn:
-                                            # Testo aggiornato
-                                            prezzo_digitale_str = f"\n📉 Minimo storico PS Store: {memoria_psn[ricerca['nome']]}€"
-                                except:
-                                    pass
-                                    
-                            messaggio = f"🔥 NUOVO AFFARE [{ricerca['nome']}]!\nPrezzo Vinted: {price_float}€{prezzo_digitale_str}\nLink: {full_link}"
+                            # ⚡ AGGIUNTO: Inserisce il minimo storico manuale nel messaggio se è stato impostato
+                            minimo_str = ""
+                            min_digitale = ricerca.get("prezzo_minimo_digitale")
+                            if min_digitale and min_digitale > 0:
+                                minimo_str = f"\n📉 Minimo storico digitale: {min_digitale}€"
                             
+                            messaggio = f"🔥 NUOVO AFFARE [{ricerca['nome']}]!\nPrezzo Vinted: {price_float}€{minimo_str}\nLink: {full_link}"
+                            
+                            # Cerca chi deve ricevere questo annuncio
                             chi_lo_riceve = ricerca.get("destinatari", ["mio"])
                             send_telegram_message(messaggio, chi_lo_riceve)
                             
@@ -302,7 +263,7 @@ def check_vinted():
         
         for idx, ricerca in enumerate(RICERCHE):
             if idx > 0:
-                time.sleep(4)
+                time.sleep(4)  # Pausa di cortesia anti-ban
                 
             visti, novita, status = scansiona_singolo_url(ricerca)
             
@@ -310,6 +271,7 @@ def check_vinted():
                 continue
             elif status != 200:
                 stato_run = f"❌ Errore HTTP {status}"
+                # Invia l'errore solo a te
                 send_telegram_message(f"⚠️ Errore Vinted su {ricerca['nome']} alle {orario_attuale_str}: HTTP {status}", ["mio"])
             
             totale_visti += visti
@@ -321,6 +283,7 @@ def check_vinted():
         print(f"-> Errore durante lo scraping: {e}")
         send_telegram_message(f"⚠️ ATTENZIONE: Errore durante la scansione delle {orario_attuale_str}!\n\nDettaglio:\n{str(e)}", ["mio"])
 
+    # --- CONTROLLO ED ELIMINAZIONE RIGHE DOPPIE ---
     riga_log = f"🕒 {orario_attuale_str} | {stato_run} | Visti: {totale_visti} | Novità: {totale_novita}\n"
     
     gia_registrato = False
@@ -334,11 +297,8 @@ def check_vinted():
         with open(LOG_FILE, "a", encoding="utf-8") as file_log:
             file_log.write(riga_log)
 
-    # --- RESOCONTO DI FINE GIORNATA E SCANSIONE PSN (Scatta a mezzanotte) ---
+    # --- RESOCONTO DI FINE GIORNATA (Scatta a mezzanotte 00:00 - 00:04) ---
     if ora_attuale.hour == 0 and ora_attuale.minute < 5:
-        # Avvia l'aggiornamento dei prezzi digitali
-        aggiorna_prezzi_psn()
-        
         try:
             with open(LOG_FILE, "r", encoding="utf-8") as file_log:
                 contenuto_diario = file_log.read()
@@ -348,11 +308,13 @@ def check_vinted():
         messaggio_resoconto = (
             "📊 *RESOCONTO GIORNALIERO VINTED*\n\n"
             f"{contenuto_diario}\n"
-            "🦉 Resoconto di mezzanotte e aggiornamento prezzi PSN completati!"
+            "🦉 Resoconto di mezzanotte completato! Il bot continua a scansionare 24/7."
         )
         
+        # Il resoconto giornaliero viene inviato SOLO a te
         send_telegram_message(messaggio_resoconto, ["mio"])
         
+        # Svuota il diario per prepararlo al nuovo giorno
         open(LOG_FILE, "w", encoding="utf-8").close()
 
 if __name__ == "__main__":
