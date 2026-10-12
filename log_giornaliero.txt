@@ -191,3 +191,4 @@
 🕒 15:55 | ✅ Ok | Visti: 330 | Novità: 0
 🕒 16:05 | ✅ Ok | Visti: 318 | Novità: 1
 🕒 16:06 | ✅ Ok | Visti: 322 | Novità: 0
+🕒 16:11 | ❌ Errore HTTP 403 | Visti: 0 | Novità: 0
