@@ -38,12 +38,12 @@ jobs:
           TZ: "Europe/Rome" # ⚡ NUOVO: Fissa l'orario italiano per il resoconto di mezzanotte
         run: python bot.py
 
-      - name: Salva gli articoli già visti, il log e i prezzi PSN
+      - name: Salva gli articoli già visti e il log
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          # ⚡ MODIFICATO: Aggiunto prezzi_psn.json alla lista dei file da salvare
-          git add notified_items.txt log_giornaliero.txt prezzi_psn.json
+          # ⚡ MODIFICATO: Aggiunto log_giornaliero.txt alla lista dei file da salvare
+          git add notified_items.txt log_giornaliero.txt
           git commit -m "🤖 Aggiornata memoria bot e resoconto" || echo "Nessun file da salvare"
           git pull --rebase # ⚡ AGGIUNTO: Previene gli errori di salvataggio e la perdita di memoria!
           git push
