@@ -47,10 +47,9 @@ jobs:
         run: python bot.py
 
       - name: Salva gli articoli già visti e il log
-        # ⚡ MIGLIORATO: Usa l'azione ufficiale per evitare conflitti e rebase falliti
+        # ⚡ MIGLIORATO: Rimosso file_pattern. Ora committa automaticamente tutto ciò che è cambiato.
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "🤖 Aggiornata memoria bot e resoconto"
-          file_pattern: 'notified_items.txt log_giornaliero.txt resoconto_inviato_*.txt'
           commit_user_name: github-actions[bot]
           commit_user_email: github-actions[bot]@users.noreply.github.com
