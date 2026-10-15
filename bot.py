@@ -56,15 +56,15 @@ RICERCHE = [
         "parole_vietate": ["ps3", "ps5", "legacy", "thieves"],
         "destinatari": ["mio"]
     },
-    {
-        "nome": "Gotham Knights PS5",
-        "url": "https://www.vinted.it/catalog?search_text=gotham%20knights&catalog[]=3026&video_game_platform_ids[]=1281&order=newest_first",
-        "prezzo_max": 8,
-        "prezzo_minimo_digitale": 7.49,
-        "parole_obbligatorie": ["gotham", "knights"],
-        "parole_vietate": ["ps4", "xbox"],
-        "destinatari": ["mio"]
-    },
+ #   {
+ #       "nome": "Gotham Knights PS5",
+ #       "url": "https://www.vinted.it/catalog?search_text=gotham%20knights&catalog[]=3026&video_game_platform_ids[]=1281&order=newest_first",
+ #       "prezzo_max": 8,
+ #       "prezzo_minimo_digitale": 7.49,
+ #       "parole_obbligatorie": ["gotham", "knights"],
+ #       "parole_vietate": ["ps4", "xbox"],
+ #       "destinatari": ["mio"]
+ #   },
     {
         "nome": "Silent Hill f PS5",
         "url": "https://www.vinted.it/catalog?search_text=silent%20hill%20f&catalog[]=3026&video_game_platform_ids[]=1281&order=newest_first",
