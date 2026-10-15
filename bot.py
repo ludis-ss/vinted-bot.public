@@ -71,7 +71,7 @@ RICERCHE = [
         "prezzo_max": 30,
         "prezzo_minimo_digitale": 40.0,
         "parole_obbligatorie": ["silent", "hill"], 
-        "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book", "townfall", "hd", "downpour", "homecoming", "origins", "shattered"], 
+        "parole_vietate": ["ps4", "xbox", "steelbook", "steel-book", "townfall", "hd", "downpour", "homecoming", "origins", "shattered", "2"], 
         "destinatari": ["mio", "amico"]
     },
     {
