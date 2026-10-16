@@ -50,7 +50,7 @@ RICERCHE = [
     {
         "nome": "Uncharted Collection PS4",
         "url": "https://www.vinted.it/catalog?search_text=uncharted%20collection%20ps4&catalog[]=3026&video_game_platform_ids[]=1280&order=newest_first",
-        "prezzo_max": 7,
+        "prezzo_max": 6,
         "prezzo_minimo_digitale": 5.9,
         "parole_obbligatorie": ["uncharted", "collection"],
         "parole_vietate": ["ps3", "ps5", "legacy", "thieves"],
