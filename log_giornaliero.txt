@@ -11,3 +11,4 @@
 🕒 00:51 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 00:55 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 01:01 | ✅ Ok | Visti: 0 | Novità: 0
+🕒 01:05 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
