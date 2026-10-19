@@ -216,3 +216,4 @@
 🕒 18:21 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 18:25 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 18:31 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
+🕒 18:41 | ✅ Ok | Visti: 0 | Novità: 0
