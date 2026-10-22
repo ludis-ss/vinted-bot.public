@@ -154,3 +154,4 @@
 🕒 12:46 | ✅ Ok | Visti: 1 | Novità: 1
 🕒 12:51 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 12:55 | ✅ Ok | Visti: 1 | Novità: 1
+🕒 13:01 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
