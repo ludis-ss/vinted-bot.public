@@ -41,7 +41,7 @@ RICERCHE = [
     {
         "nome": "Demon Souls PS5",
         "url": "https://www.vinted.it/catalog?search_text=Demon%20Souls%20Ps5&catalog[]=3026&video_game_platform_ids[]=1281&order=newest_first",
-        "prezzo_max": 20,
+        "prezzo_max": 15,
         "prezzo_minimo_digitale": 40.0,
         "parole_obbligatorie": ["demon", "souls"],
         "parole_vietate": ["ps4", "ps3"],
