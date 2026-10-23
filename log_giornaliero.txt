@@ -339,3 +339,4 @@
 🕒 18:58 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 19:01 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 19:04 | ✅ Ok | Visti: 0 | Novità: 0
+🕒 19:06 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
