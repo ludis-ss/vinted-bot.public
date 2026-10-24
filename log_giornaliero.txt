@@ -53,3 +53,4 @@
 🕒 01:46 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 01:48 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 01:51 | ✅ Ok | Visti: 0 | Novità: 0
+🕒 01:53 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
