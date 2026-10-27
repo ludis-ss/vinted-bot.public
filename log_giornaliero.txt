@@ -381,3 +381,4 @@
 🕒 13:06 | ✅ Ok | Visti: 3 | Novità: 3
 🕒 13:08 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 13:11 | ✅ Ok | Visti: 0 | Novità: 0
+🕒 13:12 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
