@@ -581,3 +581,4 @@
 🕒 20:45 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 20:46 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 20:49 | ✅ Ok | Visti: 0 | Novità: 0
+🕒 20:51 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
