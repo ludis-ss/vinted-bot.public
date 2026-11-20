@@ -573,3 +573,4 @@
 🕒 19:21 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 19:23 | ✅ Ok | Visti: 0 | Novità: 0
 🕒 19:24 | ✅ Ok | Visti: 0 | Novità: 0
+🕒 19:26 | ⚠️ Errori parziali | Visti: 0 | Novità: 0
